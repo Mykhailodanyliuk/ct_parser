@@ -2,6 +2,7 @@ import datetime
 import json
 import os
 import shutil
+import time
 from zipfile import ZipFile
 
 import pymongo
@@ -102,6 +103,11 @@ def upload_clinical_trials():
 
 if __name__ == '__main__':
     while True:
+        start_time = time.time()
         client = pymongo.MongoClient('mongodb://localhost:27017')
         upload_clinical_trials()
         client.close()
+        work_time = int(time.time() - start_time)
+        print(work_time)
+        print(14400 - work_time)
+        time.sleep(abs(work_time % 14400 - 14400))
